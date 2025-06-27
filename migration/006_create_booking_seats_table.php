@@ -9,7 +9,7 @@ $query = "CREATE TABLE booking_seats (
 
 $execute = $mysqli->prepare($query);
 if ($execute->execute()) {
-    echo "Table created successfully";
+    echo "Table created ";
 }
 $execute->close();
 $mysqli->close();

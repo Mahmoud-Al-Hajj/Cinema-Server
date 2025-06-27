@@ -1,0 +1,20 @@
+[27-Jun-2025 14:46:37 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in C:\Users\user\Desktop\SE Factory\Cinema Booking Platform\Backend\models\MovieModel.php:21
+Stack trace:
+#0 C:\Users\user\Desktop\SE Factory\Cinema Booking Platform\Backend\controller\movies.php(13): MovieModel->getAllMovies()
+#1 {main}
+  thrown in C:\Users\user\Desktop\SE Factory\Cinema Booking Platform\Backend\models\MovieModel.php on line 21
+[27-Jun-2025 14:46:57 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in C:\Users\user\Desktop\SE Factory\Cinema Booking Platform\Backend\models\MovieModel.php:21
+Stack trace:
+#0 C:\Users\user\Desktop\SE Factory\Cinema Booking Platform\Backend\controller\movies.php(13): MovieModel->getAllMovies()
+#1 {main}
+  thrown in C:\Users\user\Desktop\SE Factory\Cinema Booking Platform\Backend\models\MovieModel.php on line 21
+[27-Jun-2025 14:47:59 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in C:\Users\user\Desktop\SE Factory\Cinema Booking Platform\Backend\models\MovieModel.php:21
+Stack trace:
+#0 C:\Users\user\Desktop\SE Factory\Cinema Booking Platform\Backend\controller\movies.php(13): MovieModel->getAllMovies()
+#1 {main}
+  thrown in C:\Users\user\Desktop\SE Factory\Cinema Booking Platform\Backend\models\MovieModel.php on line 21
+[27-Jun-2025 14:48:05 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in C:\Users\user\Desktop\SE Factory\Cinema Booking Platform\Backend\models\MovieModel.php:21
+Stack trace:
+#0 C:\Users\user\Desktop\SE Factory\Cinema Booking Platform\Backend\controller\movies.php(13): MovieModel->getAllMovies()
+#1 {main}
+  thrown in C:\Users\user\Desktop\SE Factory\Cinema Booking Platform\Backend\models\MovieModel.php on line 21
