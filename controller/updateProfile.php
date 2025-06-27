@@ -19,7 +19,7 @@ $email = $data['email'] ?? '';
 $phone = $data['phone'] ?? '';
 $favorite_genres = $data['favorite_genres'] ?? '';
 
-$userModel = new UserModel($mysqli);
+$userModel = new UserModel($mysqli); 
 $success = $userModel->updateUser($id, $name, $email,$phone ,$favorite_genres);
 
 ?>
