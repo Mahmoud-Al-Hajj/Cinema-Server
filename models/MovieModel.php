@@ -47,4 +47,14 @@ public function __construct(mysqli $mysqli) {
         return $result->fetch_assoc();
     }
   
+
+    public function movieExists($title, $release_date) {
+    $sql = "SELECT id FROM movies WHERE title = ? AND release_date = ?";
+    $stmt = $this->mysqli->prepare($sql);
+    $stmt->bind_param("ss", $title, $release_date);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->num_rows > 0;
+}
+
 }
