@@ -31,27 +31,6 @@ public function __construct(mysqli $mysqli) {
         return $movies;
     }
 
-
-public function fetchFromDatabase($mysqli, $id) {
-    $this->mysqli = $mysqli;
-    $query = $mysqli->prepare("SELECT * FROM movies WHERE id = ?");
-    $query->bind_param("i", $id);
-    $query->execute();
-    $result = $query->get_result();
-    if ($row = $result->fetch_assoc()) {
-        $this->id = $row['id'];
-        $this->title = $row['title'];
-        $this->description = $row['description'];
-        $this->release_date = $row['release_date'];
-        $this->duration = $row['duration'];
-        $this->genre = $row['genre'];
-        $this->director = $row['director'];
-        $this->created_at = $row['created_at'];
-        $this->poster_url = $row['poster_url'];
-    }
-
-}
-
  public function addMovie($title, $description, $release_date, $duration, $genre, $director, $created_at, $poster_url) {
         $sql = "INSERT INTO movies (title, description, release_date, duration, genre, director, created_at, poster_url)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -59,5 +38,13 @@ public function fetchFromDatabase($mysqli, $id) {
         return $stmt->execute([$title, $description, $release_date, $duration, $genre, $director, $created_at, $poster_url]);
     }
 
+    public function getMovieById($id) {
+        $sql = "SELECT * FROM movies WHERE id = ?";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
   
 }
