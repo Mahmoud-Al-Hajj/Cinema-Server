@@ -8,14 +8,25 @@ class BookingModel {
     public function __construct($mysqli) {
         $this->mysqli = $mysqli;
     }
-public function getBookingsByUser($user_id) {
-    $query = $this->mysqli->prepare("SELECT * FROM bookings WHERE user_id = ?");
-    $query->bind_param("i", $user_id);
-    $query->execute();
-    $result = $query->get_result();
-    return $result->fetch_all(MYSQLI_ASSOC);
-}
-
+    public function getBookingsByUser($user_id) {
+        $query = $this->mysqli->prepare( "
+       SELECT 
+    b.id, 
+    b.showtime_id, 
+    b.status, 
+    s.auditorium, 
+    m.title AS movie_title
+FROM bookings b
+JOIN showtimes s ON b.showtime_id = s.id
+JOIN movies m ON s.movie_id = m.id
+WHERE b.user_id = ?
+ORDER BY b.booking_time DESC
+");
+            $query->bind_param("i", $user_id);
+        $query->execute();
+        $result = $query->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 
     public function createBooking($user_id, $showtime_id) {
         $query = $this->mysqli->prepare("INSERT INTO bookings (user_id, showtime_id) VALUES (?, ?)");
