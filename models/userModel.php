@@ -36,7 +36,6 @@ public function fetchFromDatabase($mysqli, $id) {
     }
 
 
-
 public function getId(): int {
     return $this->id;
 }

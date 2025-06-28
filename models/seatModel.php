@@ -10,7 +10,8 @@ class SeatModel {
         $query = $this->mysqli->prepare("SELECT * FROM seats WHERE showtime_id = ? ORDER BY seat_number");
         $query->bind_param("i", $showtime_id);
         $query->execute();
-        return $query->get_result()->fetch_all(MYSQLI_ASSOC);
+                $result = $query->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     public function markSeatsBooked($seatIds) {

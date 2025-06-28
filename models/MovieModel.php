@@ -18,6 +18,7 @@ public function __construct(mysqli $mysqli) {
 }
 
     public function getAllMovies() {
+
         $query = "SELECT * FROM movies";
         $result = $this->mysqli->query($query);
         $movies = [];
