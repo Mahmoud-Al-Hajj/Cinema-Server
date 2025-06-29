@@ -28,6 +28,18 @@ ORDER BY b.booking_time DESC
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getSeatIdsByBookings($booking_id) {
+        $query = $this->mysqli->prepare("SELECT seat_id FROM booking_seats WHERE booking_id = ?");
+        $query->bind_param("i", $booking_id);
+        $query->execute();
+        $result = $query->get_result();
+        $seat_ids = [];
+        while ($row = $result->fetch_assoc()) {
+            $seat_ids[] = $row['seat_id'];
+        }
+        return $seat_ids;
+    }
+
     public function createBooking($user_id, $showtime_id) {
         $query = $this->mysqli->prepare("INSERT INTO bookings (user_id, showtime_id) VALUES (?, ?)");
         $query->bind_param("ii", $user_id, $showtime_id);
@@ -55,4 +67,27 @@ public function markSeatsBooked($seat_ids) {
 }
 
 
+public function deleteBooking($booking_id) {
+    $stmt = $this->mysqli->prepare("SELECT seat_id FROM booking_seats WHERE booking_id = ?");
+    $stmt->bind_param("i", $booking_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    $seat_ids = [];
+    while ($row = $result->fetch_assoc()) {
+        $seat_ids[] = $row['seat_id'];
+    }
+    
+    $stmt = $this->mysqli->prepare("DELETE FROM booking_seats WHERE booking_id = ?");
+    $stmt->bind_param("i", $booking_id);
+    $stmt->execute();
+    
+    $stmt = $this->mysqli->prepare("DELETE FROM bookings WHERE id = ?");
+    $stmt->bind_param("i", $booking_id);
+    $stmt->execute();
+    
+
+    
+    return true;
+}
 }

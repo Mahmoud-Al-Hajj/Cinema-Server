@@ -1,14 +1,19 @@
-<?php 
+<?php
 abstract class Model{
 
     protected static string $table;
     protected static string $primary_key = "id";
+    protected $data = [];
+
+        public function __construct($data = []) {
+        $this->data = $data;
+    }
 
     public static function find(mysqli $mysqli, int $id){
         $sql = sprintf("Select * from %s WHERE %s = ?",
                         static::$table,
                         static::$primary_key);
-        
+
         $query = $mysqli->prepare($sql);
         $query->bind_param("i", $id);
         $query->execute();
@@ -20,7 +25,7 @@ abstract class Model{
 
     public static function all(mysqli $mysqli){
         $sql = sprintf("Select * from %s", static::$table);
-        
+
         $query = $mysqli->prepare($sql);
         $query->execute();
 
@@ -34,22 +39,12 @@ abstract class Model{
         return $objects;
     }
 
-    public static function add(mysqli $mysqli){
-        $sql = sprintf("Select * from %s where id = %s", static::$table , static::$primary_key);
-        $query = $mysqli -> prepare($sql);
-        $query->execute();
-        $data = $query->get_result();
-
-    return $data -> fetch_assoc();
-
-    }
     public static function delete(mysqli $mysqli, int $id){
         $sql = sprintf("DELETE FROM %s WHERE %s = ?", static::$table, static::$primary_key);
         $query = $mysqli->prepare($sql);
+        $query->bind_param("i", $id);
         return $query->execute();
     }
-    
-
 
 }
 
