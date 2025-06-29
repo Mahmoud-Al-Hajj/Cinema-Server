@@ -7,7 +7,7 @@ class SeatModel {
     }
 
     public function getSeatsByShowtime($showtime_id) {
-        $query = $this->mysqli->prepare("SELECT * FROM seats WHERE showtime_id = ? ORDER BY seat_number");
+        $query = $this->mysqli->prepare("SELECT * FROM seats WHERE showtime_id = ?");
         $query->bind_param("i", $showtime_id);
         $query->execute();
                 $result = $query->get_result();

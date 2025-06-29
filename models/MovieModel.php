@@ -2,15 +2,15 @@
 require ('../connection/db.php');
 class MovieModel {
     private $mysqli;
-    private $id;
-    private string $title;
-    private string $description;
-    private string $release_date;
-    private int $duration;
-    private string $genre;
-    private string $director;
-    private string $created_at;
-    private string $poster_url;
+    // private $id;
+    // private string $title;
+    // private string $description;
+    // private string $release_date;
+    // private int $duration;
+    // private string $genre;
+    // private string $director;
+    // private string $created_at;
+    // private string $poster_url;
 
 public function __construct(mysqli $mysqli) {
     $this->mysqli = $mysqli;

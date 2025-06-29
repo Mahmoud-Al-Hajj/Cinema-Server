@@ -33,6 +33,24 @@ abstract class Model{
 
         return $objects;
     }
+
+    public static function add(mysqli $mysqli){
+        $sql = sprintf("Select * from %s where id = %s", static::$table , static::$primary_key);
+        $query = $mysqli -> prepare($sql);
+        $query->execute();
+        $data = $query->get_result();
+
+    return $data -> fetch_assoc();
+
+    }
+    public static function delete(mysqli $mysqli, int $id){
+        $sql = sprintf("DELETE FROM %s WHERE %s = ?", static::$table, static::$primary_key);
+        $query = $mysqli->prepare($sql);
+        return $query->execute();
+    }
+    
+
+
 }
 
 

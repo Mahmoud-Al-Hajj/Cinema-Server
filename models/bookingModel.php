@@ -10,11 +10,11 @@ class BookingModel {
     }
     public function getBookingsByUser($user_id) {
         $query = $this->mysqli->prepare( "
-       SELECT 
-    b.id, 
-    b.showtime_id, 
-    b.status, 
-    s.auditorium, 
+    SELECT
+    b.id,
+    b.showtime_id,
+    b.status,
+    s.auditorium,
     m.title AS movie_title
 FROM bookings b
 JOIN showtimes s ON b.showtime_id = s.id

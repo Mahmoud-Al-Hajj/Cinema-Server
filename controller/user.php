@@ -14,15 +14,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($userData && password_verify($password, $userData['password'])) {
         $_SESSION['user_id'] = $userData['id'];
-        $_SESSION['user_name'] = $userData['name'];
 
         echo json_encode([
             'success' => true,
             'user_id' => $userData['id'],
-            'user_name' => $userData['name'],
         ]);
     } else {
-        http_response_code(401);
         echo json_encode([
             'success' => false,
             'message' => 'not correct email or password',
