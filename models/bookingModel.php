@@ -85,4 +85,5 @@ public function deleteBooking($id) {
     return $stmt->execute();
 }
 
+
 }
