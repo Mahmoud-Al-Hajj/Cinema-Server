@@ -1,12 +1,11 @@
 <?php
-session_start();
 require '../connection/db.php';
 require '../models/seatModel.php';
 require '../models/bookingModel.php';
 
 $data = json_decode(file_get_contents('php://input'), true);
 
-$user_id = $_SESSION['user_id'] ?? 1;
+$user_id = $data['user_id'] ?? null;
 $showtime_id = $data['showtime_id'];
 $seat_ids = $data['seat_ids'];
 

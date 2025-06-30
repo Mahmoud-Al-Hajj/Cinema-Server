@@ -1,5 +1,4 @@
 <?php
-session_start();
 require '../connection/db.php';
 require '../models/UserModel.php';
 
@@ -13,19 +12,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userData = $userModel->findByEmail($mysqli, $email);
 
     if ($userData && password_verify($password, $userData['password'])) {
-        $_SESSION['user_id'] = $userData['id'];
-
         echo json_encode([
             'success' => true,
             'user_id' => $userData['id'],
+            'name' => $userData['name'],
+            'email' => $userData['email'],
+            'phone' => $userData['phone'],
+            'favorite_genres' => $userData['favorite_genres'],
+            'role' => $userData['role'] ?? 'user',
         ]);
     } else {
         echo json_encode([
             'success' => false,
             'message' => 'not correct email or password',
         ]);
-
-
     }
     exit;
 }

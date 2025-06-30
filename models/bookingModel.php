@@ -8,25 +8,31 @@ class BookingModel {
     public function __construct($mysqli) {
         $this->mysqli = $mysqli;
     }
-    public function getBookingsByUser($user_id) {
-        $query = $this->mysqli->prepare( "
-    SELECT
-    b.id,
-    b.showtime_id,
-    b.status,
-    s.auditorium,
-    m.title AS movie_title
-FROM bookings b
-JOIN showtimes s ON b.showtime_id = s.id
-JOIN movies m ON s.movie_id = m.id
-WHERE b.user_id = ?
-ORDER BY b.booking_time DESC
-");
-            $query->bind_param("i", $user_id);
-        $query->execute();
-        $result = $query->get_result();
-        return $result->fetch_all(MYSQLI_ASSOC);
-    }
+public function getBookingsByUser($user_id) {
+    $query = $this->mysqli->prepare("
+        SELECT
+            b.id AS booking_id,
+            b.showtime_id,
+            b.status,
+            s.auditorium,
+            m.title AS movie_title,
+            GROUP_CONCAT(CONCAT(se.seat_row, se.seat_number) ORDER BY se.seat_row, se.seat_number SEPARATOR ', ') AS seats
+        FROM bookings b
+        JOIN showtimes s ON b.showtime_id = s.id
+        JOIN movies m ON s.movie_id = m.id
+        JOIN booking_seats bs ON b.id = bs.booking_id
+        JOIN seats se ON bs.seat_id = se.id
+        WHERE b.user_id = ?
+        GROUP BY b.id
+        ORDER BY b.booking_time DESC
+    ");
+
+    $query->bind_param("i", $user_id);
+    $query->execute();
+    $result = $query->get_result();
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+
 
     public function getSeatIdsByBookings($booking_id) {
         $query = $this->mysqli->prepare("SELECT seat_id FROM booking_seats WHERE booking_id = ?");
@@ -67,27 +73,16 @@ public function markSeatsBooked($seat_ids) {
 }
 
 
-public function deleteBooking($booking_id) {
-    $stmt = $this->mysqli->prepare("SELECT seat_id FROM booking_seats WHERE booking_id = ?");
-    $stmt->bind_param("i", $booking_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    
-    $seat_ids = [];
-    while ($row = $result->fetch_assoc()) {
-        $seat_ids[] = $row['seat_id'];
-    }
-    
-    $stmt = $this->mysqli->prepare("DELETE FROM booking_seats WHERE booking_id = ?");
-    $stmt->bind_param("i", $booking_id);
-    $stmt->execute();
-    
-    $stmt = $this->mysqli->prepare("DELETE FROM bookings WHERE id = ?");
-    $stmt->bind_param("i", $booking_id);
-    $stmt->execute();
-    
-
-    
-    return true;
+public function deleteBooking($id) {
+    $sql = "
+        DELETE b, bs
+        FROM bookings b
+        LEFT JOIN booking_seats bs ON b.id = bs.booking_id
+        WHERE b.id = ?
+    ";
+    $stmt = $this->mysqli->prepare($sql);
+    $stmt->bind_param("i", $id);
+    return $stmt->execute();
 }
+
 }

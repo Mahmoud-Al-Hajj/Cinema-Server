@@ -47,7 +47,6 @@ public function __construct(mysqli $mysqli) {
         $result = $stmt->get_result();
         return $result->fetch_assoc();
     }
-  
 
     public function movieExists($title, $release_date) {
     $sql = "SELECT id FROM movies WHERE title = ? AND release_date = ?";
@@ -56,6 +55,14 @@ public function __construct(mysqli $mysqli) {
     $stmt->execute();
     $result = $stmt->get_result();
     return $result->num_rows > 0;
+}
+
+
+public function deleteMovie($id) {
+    $sql = "DELETE FROM movies WHERE id = ?";
+    $stmt = $this->mysqli->prepare($sql);
+    $stmt->bind_param("i", $id);
+    return $stmt->execute();
 }
 
 }
