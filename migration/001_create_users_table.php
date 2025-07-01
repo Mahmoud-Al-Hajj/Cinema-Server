@@ -8,11 +8,12 @@ $query = "CREATE TABLE users (
     phone VARCHAR(255),
     password VARCHAR(255) NOT NULL,
     favorite_genres TEXT
+    role VARCHAR(20) NOT NULL DEFAULT 'user'
 );";
 
 $execute = $mysqli->prepare($query);
 if ($execute->execute()) {
-    echo "Table created successfully";
+    echo "Table created ";
 }
 $execute->close();
 $mysqli->close();

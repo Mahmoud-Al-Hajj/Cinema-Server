@@ -1,7 +1,7 @@
 <?php
 require '../connection/db.php';
 
-$query = "CREATE TABLE IF NOT EXISTS bookings (
+$query = "CREATE TABLE bookings (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
     showtime_id INT,
@@ -11,7 +11,7 @@ $query = "CREATE TABLE IF NOT EXISTS bookings (
 
 $execute = $mysqli->prepare($query);
 if ($execute->execute()) {
-    echo "Table created successfully";
+    echo "Table created ";
 }
 $execute->close();
 $mysqli->close();

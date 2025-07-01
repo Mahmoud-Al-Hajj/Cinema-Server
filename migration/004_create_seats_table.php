@@ -11,7 +11,7 @@ $query = "CREATE TABLE seats (
 
 $execute = $mysqli->prepare($query);
 if ($execute->execute()) {
-    echo "Table created successfully";
+    echo "Table created ";
 }
 $execute->close();
 $mysqli->close();   // cuz it saves resources.
