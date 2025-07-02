@@ -16,4 +16,10 @@ public function getShowtimesByMovie($movie_id) {
     return $result->fetch_all(MYSQLI_ASSOC);
 }
 
+public function createShowtime($movie_id, $showtime, $auditorium) {
+    $query = $this->mysqli->prepare("INSERT INTO showtimes (movie_id, showtime, auditorium) VALUES (?, ?, ?)");
+    $query->bind_param("iss", $movie_id, $showtime, $auditorium);
+    return $query->execute();
+}
+
 }

@@ -2,7 +2,9 @@
 require '../connection/db.php';
 require '../models/MovieModel.php';
 
+// Get the raw JSON data from the request body
 $data = json_decode(file_get_contents('php://input'), true);
+
 $title = $data['title'] ?? '';
 $genre = $data['genre'] ?? '';
 $duration = $data['duration'] ?? '';
@@ -17,5 +19,5 @@ $movieModel = new MovieModel($mysqli);
 if ($movieModel->addMovie($title, $description, $release_date, $duration, $genre, $director, $created_at, $poster_url)) {
     echo json_encode(['success' => true, 'message' => 'Movie added successfully']);
 } else {
-    echo json_encode(['success' => false, 'message' => 'Failed to add movie']);
+    echo json_encode([ 'message' => 'Failed to add movie']);
 }

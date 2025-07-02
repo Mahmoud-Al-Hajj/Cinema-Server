@@ -25,4 +25,10 @@ class SeatModel {
             $query->execute();
         }
     }
+
+    public function createSeat($showtime_id, $seat_row, $seat_number) {
+        $query = $this->mysqli->prepare("INSERT INTO seats (showtime_id, seat_row, seat_number, is_booked) VALUES (?, ?, ?, 0)");
+        $query->bind_param("isi", $showtime_id, $seat_row, $seat_number);
+        return $query->execute();
+    }
 }
