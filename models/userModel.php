@@ -111,7 +111,6 @@ public function updateUser($id, $name, $email, $phone, $favorite_genres) {
 
     $query = $this->mysqli->prepare("UPDATE users SET name = ?, email = ?, phone = ?, password = ?, favorite_genres = ? WHERE id = ?");
     $query->bind_param("sssssi", $name, $email, $phone, $password, $favorite_genres, $id);
-    var_dump($_SESSION['user_id'], $name, $email, $phone, $favorite_genres);
 
 
 
