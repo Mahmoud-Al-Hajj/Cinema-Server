@@ -20,6 +20,5 @@ if ($result) {
         'success' => false,
         'message' => 'Failed to delete booking. It may not exist or an error occurred.',
         'booking_id' => $booking_id,
-        'mysql_error' => $mysqli->error
     ]);
 }

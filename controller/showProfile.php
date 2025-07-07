@@ -21,6 +21,6 @@ echo json_encode([
     'name' => $user->name,
     'email' => $user->email,
     'phone' => $user->phone,
-    'favorite_genres' => $user->favorite_genres,
+    'favorite_genres' => $user->favorite_genres ?? '',
     'role' => $user->role ?? 'user'
 ]);

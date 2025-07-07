@@ -3,7 +3,6 @@ header('Content-Type: application/json');
 require '../connection/db.php';
 require '../models/SeatModel.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
     $showtime_id = $data['showtime_id'] ?? null;
     $seat_row = $data['seat_row'] ?? null;
@@ -17,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $success = SeatModel::createSeat($mysqli, $showtime_id, $seat_row, $seat_number);
     echo json_encode(['success' => $success]);
     exit;
-}
+
 
 $showtime_id = $_GET['showtime_id'] ?? null;
 if (!$showtime_id) {

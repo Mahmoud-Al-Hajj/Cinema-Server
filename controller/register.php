@@ -1,8 +1,6 @@
 <?php
 require '../connection/db.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
     $name = $_POST['name'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
@@ -18,5 +16,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: ../Frontend/Pages/login.html");
         exit();
     }
-}
+
 ?>
