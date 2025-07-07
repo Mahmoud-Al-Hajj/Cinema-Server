@@ -9,7 +9,7 @@ $decoded = json_decode($jsonData, true);
 
 
 $movies = $decoded['movies'];
-$moviesModel = new MovieModel($mysqli);
+//$moviesModel = new MovieModel($mysqli); this was before extending the BaseModel and letting MovieModel take only $mysqli as a parameter
 
 
 foreach ($movies as $movie) {
@@ -23,7 +23,7 @@ foreach ($movies as $movie) {
     $poster = $movie['posterUrl'];
 
         if ($moviesModel->movieExists($title, $release_date)) {
-        echo "Skipped duplicate: $title ($release_date)";
+        echo "Skipped duplicate: $title";
         continue;
     }
     $query = $moviesModel->addMovie(
