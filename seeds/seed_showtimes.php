@@ -19,4 +19,4 @@ for ($i = 0; $i < 3; $i++) {
 
 }
 
-echo "Showtimes seeded successfully!";
+echo "Showtimes added successfully!";

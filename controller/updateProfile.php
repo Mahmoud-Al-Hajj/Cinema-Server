@@ -4,21 +4,18 @@ require '../models/UserModel.php';
 
 header('Content-Type: application/json');
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_POST['user_id'])) {
+if (!isset($_POST['user_id'])) {
     header("Location: /Frontend/Pages/profile.html");
     exit();
 }
 
 $id = $_POST['user_id'];
-$data = $_POST;
+$name = $_POST['name'] ?? '';
+$email = $_POST['email'] ?? '';
+$phone = $_POST['phone'] ?? '';
+$favorite_genres = $_POST['favorite_genres'] ?? '';
 
-$name = $data['name'] ?? '';
-$email = $data['email'] ?? '';
-$phone = $data['phone'] ?? '';
-$favorite_genres = $data['favorite_genres'] ?? '';
-
-$userModel = new UserModel($mysqli);
-$success = $userModel->updateUser($id, $name, $email, $phone, $favorite_genres);
+$success = UserModel::updateUser($mysqli, $id, $name, $email, $phone, $favorite_genres);
 
 if ($success) {
     echo json_encode(['success' => true, 'message' => 'Profile updated successfully']);

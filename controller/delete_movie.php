@@ -12,8 +12,7 @@ if ($role !== 'admin') {
     exit;
 }
 
-$movieModel = new MovieModel($mysqli);
-$result = $movieModel->deleteMovie($movie_id);
+$result = MovieModel::delete($mysqli, $movie_id);
 if ($result) {
     echo json_encode(['success' => true, 'message' => 'Movie deleted successfully']);
 } else {

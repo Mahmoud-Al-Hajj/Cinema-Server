@@ -5,7 +5,7 @@ header('Content-Type: application/json');
 require '../connection/db.php';
 require '../models/MovieModel.php';
 
-$movieModel = new MovieModel($mysqli);
-$movies = $movieModel->getAllMovies();
+    $movies = MovieModel::all($mysqli);
+    echo json_encode($movies);
+    exit;
 
-echo json_encode($movies);

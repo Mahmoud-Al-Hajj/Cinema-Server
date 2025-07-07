@@ -1,6 +1,5 @@
 <?php
 header('Content-Type: application/json');
-
 require '../connection/db.php';
 require '../models/ShowtimeModel.php';
 
@@ -13,20 +12,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode(['success' => false, 'message' => 'Missing required fields']);
         exit;
     }
-    $showtimeModel = new ShowtimeModel($mysqli);
-    $success = $showtimeModel->createShowtime($movie_id, $showtime, $auditorium);
+    $success = ShowtimeModel::createShowtime($mysqli, $movie_id, $showtime, $auditorium);
     echo json_encode(['success' => $success]);
     exit;
 }
 
 $movie_id = $_GET['movie_id'] ?? null;
-
 if (!$movie_id) {
     echo json_encode(['error' => 'No movie_id provided']);
     exit;
 }
 
-$showtimeModel = new ShowtimeModel($mysqli);
-$showtimes = $showtimeModel->getShowtimesByMovie($movie_id);
-
-echo json_encode($showtimes);
+$showtimes = ShowtimeModel::getShowtimesByMovie($mysqli, $movie_id);
+$showtimes_array = array_map(fn($showtime) => [
+    'id' => $showtime->id,
+    'movie_id' => $showtime->movie_id,
+    'showtime' => $showtime->showtime,
+    'auditorium' => $showtime->auditorium
+], $showtimes);
+echo json_encode($showtimes_array);

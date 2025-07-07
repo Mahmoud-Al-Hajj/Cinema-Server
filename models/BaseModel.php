@@ -45,8 +45,5 @@ abstract class Model{
         $query->bind_param("i", $id);
         return $query->execute();
     }
-
+    
 }
-
-
-

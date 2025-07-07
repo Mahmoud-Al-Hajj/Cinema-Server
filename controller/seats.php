@@ -8,12 +8,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $showtime_id = $data['showtime_id'] ?? null;
     $seat_row = $data['seat_row'] ?? null;
     $seat_number = $data['seat_number'] ?? null;
+
+
     if (!$showtime_id || !$seat_row || !$seat_number) {
         echo json_encode(['success' => false, 'message' => 'Missing required fields']);
         exit;
     }
-    $model = new SeatModel($mysqli);
-    $success = $model->createSeat($showtime_id, $seat_row, $seat_number);
+    $success = SeatModel::createSeat($mysqli, $showtime_id, $seat_row, $seat_number);
     echo json_encode(['success' => $success]);
     exit;
 }
@@ -24,5 +25,5 @@ if (!$showtime_id) {
     exit;
 }
 
-$model = new SeatModel($mysqli);
-echo json_encode($model->getSeatsByShowtime($showtime_id));
+$seats = SeatModel::getSeatsByShowtime($mysqli, $showtime_id);
+echo json_encode($seats);

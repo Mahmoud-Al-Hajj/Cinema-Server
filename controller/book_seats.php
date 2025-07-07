@@ -9,11 +9,8 @@ $user_id = $data['user_id'] ?? null;
 $showtime_id = $data['showtime_id'];
 $seat_ids = $data['seat_ids'];
 
-$bookingModel = new BookingModel($mysqli);
-$seatModel = new SeatModel($mysqli);
-
-$booking_id = $bookingModel->createBooking($user_id, $showtime_id);
-$bookingModel->addSeatsToBooking($booking_id, $seat_ids);
-$seatModel->markSeatsBooked($seat_ids);
+$booking_id = BookingModel::createBooking($mysqli, $user_id, $showtime_id);
+BookingModel::addSeatsToBooking($mysqli, $booking_id, $seat_ids);
+BookingModel::markSeatsBooked($mysqli, $seat_ids);
 
 echo json_encode(['success' => true, 'booking_id' => $booking_id]);
