@@ -8,12 +8,11 @@ $movie_id = $data['movie_id'] ?? null;
 $role = $data['role'] ?? 'user';
 
 if ($role !== 'admin') {
-    echo json_encode(['success' => false, 'message' => 'Unauthorized: Admins only.']);
+    echo json_encode(['success' => false, 'message' => ' Admin only.']);
     exit;
 }
 
-$movieModel = new MovieModel($mysqli);
-$result = $movieModel->deleteMovie($movie_id);
+$result = MovieModel::delete($mysqli, $movie_id);
 if ($result) {
     echo json_encode(['success' => true, 'message' => 'Movie deleted successfully']);
 } else {

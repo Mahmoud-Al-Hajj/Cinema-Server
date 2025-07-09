@@ -4,28 +4,25 @@ require '../models/UserModel.php';
 
 header('Content-Type: application/json');
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $userModel = new UserModel($mysqli);
-    $userData = $userModel->findByEmail($mysqli, $email);
+    $user = UserModel::findByEmail($mysqli, $email);
 
-    if ($userData && password_verify($password, $userData['password'])) {
+    if ($user && password_verify($password, $user->password)) {
         echo json_encode([
             'success' => true,
-            'user_id' => $userData['id'],
-            'name' => $userData['name'],
-            'email' => $userData['email'],
-            'phone' => $userData['phone'],
-            'favorite_genres' => $userData['favorite_genres'],
-            'role' => $userData['role'] ?? 'user',
+            'user_id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'phone' => $user->phone,
+            'favorite_genres' => $user->favorite_genres,
+            'role' => $user->role ?? 'user',
         ]);
     } else {
         echo json_encode([
             'success' => false,
-            'message' => 'not correct email or password',
+            'message' => 'not correct email and password',
         ]);
     }
     exit;
-}
