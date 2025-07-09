@@ -11,3 +11,4 @@ if (!$user_id) {
 
 $bookings = BookingModel::getBookingsByUser($mysqli, $user_id);
 echo json_encode($bookings);
+

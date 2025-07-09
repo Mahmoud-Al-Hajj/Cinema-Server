@@ -9,12 +9,9 @@ require '../connection/db.php';
 
     $query = "INSERT INTO users (name, email, phone, password, role) VALUES ('$name', '$email', '$phone', '$password', 'user')";
     $result = mysqli_query($mysqli, $query);
-    if ($result) {
+    $result = mysqli_affected_rows($mysqli);
+    
         header("Location: /Frontend/Pages/login.html");
         exit();
-    } else {
-        header("Location: ../Frontend/Pages/login.html");
-        exit();
-    }
 
 ?>

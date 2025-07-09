@@ -17,12 +17,12 @@ header('Content-Type: application/json');
             'email' => $user->email,
             'phone' => $user->phone,
             'favorite_genres' => $user->favorite_genres,
-            'role' => $user->role ?? 'user',    
+            'role' => $user->role ?? 'user',
         ]);
     } else {
         echo json_encode([
             'success' => false,
-            'message' => 'not correct email & password',
+            'message' => 'not correct email and password',
         ]);
     }
     exit;

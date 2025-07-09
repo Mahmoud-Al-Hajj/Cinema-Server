@@ -2,12 +2,11 @@
 require '../connection/db.php';
 require '../models/MovieModel.php';
 
-// Get the raw JSON data from the request body
 $data = json_decode(file_get_contents('php://input'), true);
 
 $title = $data['title'] ?? '';
 $genre = $data['genre'] ?? '';
-$duration = $data['duration'] !== '' ? (int)$data['duration'] : null;
+$duration = $data['duration'] ?? '';
 $release_date = $data['release_date'] ?? '';
 $description = $data['description'] ?? '';
 $director = $data['director'] ?? '';
