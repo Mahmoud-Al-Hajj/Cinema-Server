@@ -1,6 +1,6 @@
 <?php
 require ('../connection/db.php');
-require_once(__DIR__ . '/BaseModel.php');
+require (__DIR__ . '/BaseModel.php');
 
 class UserModel extends Model {
     protected static string $table = 'users';
@@ -30,7 +30,7 @@ class UserModel extends Model {
         $query->execute();
         $result = $query->get_result();
         $row = $result->fetch_assoc();
-        return $row ? new static($row) : null;
+        return $row;
     }
 
     public static function createUser($mysqli, $name, $email, $phone, $password, $genres, $role = 'user') {
@@ -50,11 +50,12 @@ class UserModel extends Model {
         if (!$user) {
             return false;
         }
-        $name = !empty($name) ? $name : $user["name"];
-        $email = !empty($email) ? $email : $user["email"];
-        $phone = !empty($phone) ? $phone : $user["phone"];
-        $favorite_genres = !empty($favorite_genres) ? $favorite_genres : $user["favorite_genres"];
+        $name = $name ?? $user['name'];
+        $email = $email ?? $user['email'];
+        $phone = $phone ?? $user['phone'];
+        $favorite_genres = $favorite_genres ?? $user['favorite_genres'];
         $password = $user["password"];
+        //keep pass
 
         $query = $mysqli->prepare("UPDATE users SET name = ?, email = ?, phone = ?, password = ?, favorite_genres = ? WHERE id = ?");
         $query->bind_param("sssssi", $name, $email, $phone, $password, $favorite_genres, $id);

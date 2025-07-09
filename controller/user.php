@@ -9,20 +9,20 @@ header('Content-Type: application/json');
 
     $user = UserModel::findByEmail($mysqli, $email);
 
-    if ($user && password_verify($password, $user->password)) {
+    if ($user && password_verify($password, $user['password'])) {
         echo json_encode([
             'success' => true,
-            'user_id' => $user->id,
-            'name' => $user->name,
-            'email' => $user->email,
-            'phone' => $user->phone,
-            'favorite_genres' => $user->favorite_genres,
-            'role' => $user->role ?? 'user',
+            'user_id' => $user['id'],
+            'name' => $user['name'],
+            'email' => $user['email'],
+            'phone' => $user['phone'],
+            'password' => $user['password'],
+            'favorite_genres' => $user['favorite_genres'],
+            'role' => $user['role']
         ]);
     } else {
         echo json_encode([
             'success' => false,
-            'message' => 'not correct email and password',
-        ]);
+            'message' => 'not correct email and password']);
     }
     exit;

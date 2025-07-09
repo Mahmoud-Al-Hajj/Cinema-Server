@@ -1,16 +1,14 @@
 <?php
 require '../connection/db.php';
+require '../models/UserModel.php';
 
     $name = $_POST['name'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
     $password = $_POST['password'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-    $query = "INSERT INTO users (name, email, phone, password, role) VALUES ('$name', '$email', '$phone', '$password', 'user')";
-    $result = mysqli_query($mysqli, $query);
-    $result = mysqli_affected_rows($mysqli);
-    
+    $user = userModel::createUser($mysqli, $name, $email, $phone, $password, '', 'user');
+
         header("Location: /Frontend/Pages/login.html");
         exit();
 

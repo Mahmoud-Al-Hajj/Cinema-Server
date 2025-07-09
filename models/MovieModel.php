@@ -40,8 +40,8 @@ class MovieModel extends Model {
 
     public static function addMovie($title, $description, $release_date, $duration, $genre, $director, $created_at, $poster_url) {
         global $mysqli;
-        $sql = "INSERT INTO " . static::$table . " (title, description, release_date, duration, genre, director, created_at, poster_url)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+ $sql = sprintf("INSERT INTO %s (title, description, release_date, duration, genre, director, created_at, poster_url) 
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?)",static::$table);
         $stmt = $mysqli->prepare($sql);
         $stmt->bind_param("ssssisss", $title, $description, $release_date, $duration, $genre, $director, $created_at, $poster_url);
         return $stmt->execute();

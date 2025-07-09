@@ -13,5 +13,3 @@ while ($show = $result->fetch_assoc()) {
             $stmt->execute();
         }
 }
-
-echo "Seats seeded successfully!";
