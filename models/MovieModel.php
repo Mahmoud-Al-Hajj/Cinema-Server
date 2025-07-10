@@ -28,11 +28,11 @@ class MovieModel extends Model {
         $this->poster_url = $data['poster_url'] ?? '';
     }
 
-    public static function movieExists($title, $release_date) {
+    public static function movieExists($title) {
         global $mysqli;
-        $sql = "SELECT id FROM (SELECT * FROM " . static::$table . ") AS subquery WHERE title = ? AND release_date = ?";
+        $sql = sprintf("SELECT %s FROM (SELECT * FROM " . static::$table . ") AS subquery WHERE title = ?", static::$primary_key);
         $stmt = $mysqli->prepare($sql);
-        $stmt->bind_param("ss", $title, $release_date);
+        $stmt->bind_param("s", $title);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->num_rows > 0;
@@ -40,8 +40,8 @@ class MovieModel extends Model {
 
     public static function addMovie($title, $description, $release_date, $duration, $genre, $director, $created_at, $poster_url) {
         global $mysqli;
- $sql = sprintf("INSERT INTO %s (title, description, release_date, duration, genre, director, created_at, poster_url) 
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?)",static::$table);
+    $sql = sprintf("INSERT INTO %s (title, description, release_date, duration, genre, director, created_at, poster_url) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)",static::$table);
         $stmt = $mysqli->prepare($sql);
         $stmt->bind_param("ssssisss", $title, $description, $release_date, $duration, $genre, $director, $created_at, $poster_url);
         return $stmt->execute();

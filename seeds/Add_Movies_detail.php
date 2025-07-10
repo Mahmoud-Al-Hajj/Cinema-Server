@@ -1,8 +1,8 @@
 <?php
-require '../connection/db.php'; // adjust path as needed
+require '../connection/db.php';
 require '../models/MovieModel.php';
 
-// Load and decode JSON file
+// Load n decode JSON file
 $jsonFile = 'C:/Users/user/Desktop/SE Factory/Cinema Booking Platform/Frontend/assets/movies40.JSON';
 $jsonData = file_get_contents($jsonFile);
 $decoded = json_decode($jsonData, true);
