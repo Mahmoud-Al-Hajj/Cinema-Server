@@ -13,6 +13,3 @@ $execute = $mysqli->prepare($query);
 if ($execute->execute()) {
     echo "Table created ";
 }
-$execute->close();
-$mysqli->close();
-?>

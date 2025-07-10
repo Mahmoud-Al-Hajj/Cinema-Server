@@ -25,5 +25,3 @@ if ($mysqli->multi_query($query)) {
     echo "Error adding foreign keys: " . $mysqli->error;
 }
 
-$mysqli->close();
-?>
